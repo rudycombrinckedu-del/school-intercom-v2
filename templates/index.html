@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visitor Check-In</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            text-align: center;
+            padding: 40px;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>School Visitor Check-In</h2>
+
+    <form action="/submit" method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+
+        <select name="person">
+            <option>Reception</option>
+            <option>Teacher</option>
+            <option>Admin</option>
+        </select>
+
+        <input type="text" name="reason" placeholder="Reason for visit">
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
