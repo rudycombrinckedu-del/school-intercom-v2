@@ -63,17 +63,18 @@ def submit():
     # Save to database
     conn = sqlite3.connect('visitors.db')
     c = conn.cursor()
-    c.execute("INSERT INTO visitors (name, phone, person, reason, time) VALUES (?, ?, ?, ?, ?)",
-              (name, phone, person, reason, time))
+    c.execute(
+        "INSERT INTO visitors (name, phone, person, reason, time) VALUES (?, ?, ?, ?, ?)",
+        (name, phone, person, reason, time)
+    )
     conn.commit()
     conn.close()
 
-    # Send WhatsApp notification
-   try:
-    send_whatsapp(name, phone, person, reason)
-    print("WhatsApp sent successfully")
-except Exception as e:
-    print("WHATSAPP ERROR:", e)
+    # Send WhatsApp safely
+    try:
+        send_whatsapp(name, phone, person, reason)
+    except Exception as e:
+        print("WhatsApp error:", e)
 
     return redirect('/success')
 
