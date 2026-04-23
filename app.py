@@ -16,32 +16,28 @@ client = Client(account_sid, auth_token)
 # 📲 WhatsApp function
 def send_whatsapp(name, phone, person, reason):
     try:
- message = f"""🏫 {person} VISITOR ALERT
+        message = f"""📢 {person} VISITOR ALERT
 
-👤 Name: {name}
-📞 Phone: {phone}
-📝 Reason: {reason}
+Name: {name}
+Phone: {phone}
+Visiting: {person}
+Reason: {reason}
 
-⏰ Please respond or open gate.
+Please respond or open gate.
 """
 
-        msg = client.messages.create(
-            from_='whatsapp:+14155238886',
-            body=message,
-            numbers = [
-    'whatsapp:+27789203474',  # security
-    'whatsapp:+2782XXXXXXX',  # principal
-]
+        numbers = [
+            'whatsapp:+27789203474',  # security
+            'whatsapp:+2782XXXXXXX'   # principal
+        ]
 
-for num in numbers:
-    client.messages.create(
-        from_='whatsapp:+14155238886',
-        body=message,
-        to=num
-    )
-        )
-
-        print("✅ SENT:", msg.sid)
+        for num in numbers:
+            msg = client.messages.create(
+                from_='whatsapp:+14155238886',
+                body=message,
+                to=num
+            )
+            print("✅ SENT TO", num, msg.sid)
 
     except Exception as e:
         print("❌ ERROR:", e)
