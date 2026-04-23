@@ -1,4 +1,28 @@
 from flask import session
+app.secret_key = 'supersecretkey'
+USERS = {
+    "school1": "1234",
+    "school2": "1234"
+}
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        if username in USERS and USERS[username] == password:
+            session['user'] = username
+            return redirect('/')
+
+        return "Invalid login"
+
+    return '''
+        <form method="post">
+            <input name="username" placeholder="Username">
+            <input name="password" type="password" placeholder="Password">
+            <button type="submit">Login</button>
+        </form>
+    '''
 from flask import Flask, render_template, request, redirect
 from datetime import datetime
 import sqlite3
@@ -64,11 +88,15 @@ init_db()
 # 🏠 Home page
 @app.route('/')
 def index():
+    if 'user' not in session:
+        return redirect('/login')
     return render_template('index.html')
 
 # 📩 Handle form submission
 @app.route('/submit', methods=['POST'])
 def submit():
+    if 'user' not in session:
+        return redirect('/login')
     name = request.form['name']
     phone = request.form['phone']
     person = request.form['person']
@@ -101,6 +129,8 @@ def success():
 # 📊 Admin view (see visitors)
 @app.route('/admin')
 def admin():
+    if 'user' not in session:
+        return redirect('/login')
     conn = sqlite3.connect('visitors.db')
     c = conn.cursor()
     c.execute("SELECT * FROM visitors ORDER BY id DESC")
