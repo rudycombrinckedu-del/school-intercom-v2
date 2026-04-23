@@ -11,6 +11,26 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
+        if username == "school1" and password == "1234":
+            session['user'] = username
+            return redirect('/')
+
+        return "Invalid login"
+
+    return '''
+        <h2>Login</h2>
+        <form method="post">
+            <input name="username" placeholder="Username"><br><br>
+            <input name="password" type="password" placeholder="Password"><br><br>
+            <button type="submit">Login</button>
+        </form>
+    '''
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
         if username in USERS and USERS[username] == password:
             session['user'] = username
             return redirect('/')
