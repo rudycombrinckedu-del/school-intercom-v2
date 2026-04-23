@@ -1,4 +1,5 @@
 from flask import session
+app = Flask(__name__)
 app.secret_key = 'supersecretkey'
 USERS = {
     "school1": "1234",
