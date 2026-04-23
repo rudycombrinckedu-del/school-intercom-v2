@@ -15,16 +15,19 @@ client = Client(account_sid, auth_token)
 
 # 📲 WhatsApp function
 def send_whatsapp(name, phone, person, reason):
+    message = f"""📢 SCHOOL VISITOR ALERT
+
+Name: {name}
+Phone: {phone}
+Visiting: {person}
+Reason: {reason}
+
+Please respond or open gate.
+"""
+
     client.messages.create(
         from_='whatsapp:+14155238886',
-        body=f"""🚪 SCHOOL VISITOR ALERT
-
-👤 Name: {name}
-📞 Phone: {phone}
-🎯 Visiting: {person}
-📝 Reason: {reason}
-
-📢 Please respond or open gate.""",
+        body=message,
         to='whatsapp:+27789203474'
     )
 # 🗄️ Create database
