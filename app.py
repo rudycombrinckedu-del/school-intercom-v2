@@ -69,7 +69,11 @@ def submit():
     conn.close()
 
     # Send WhatsApp notification
+   try:
     send_whatsapp(name, phone, person, reason)
+    print("WhatsApp sent successfully")
+except Exception as e:
+    print("WHATSAPP ERROR:", e)
 
     return redirect('/success')
 
