@@ -15,7 +15,8 @@ client = Client(account_sid, auth_token)
 
 # 📲 WhatsApp function
 def send_whatsapp(name, phone, person, reason):
-    message = f"""📢 SCHOOL VISITOR ALERT
+    try:
+        message = f"""📢 SCHOOL VISITOR ALERT
 
 Name: {name}
 Phone: {phone}
@@ -25,11 +26,16 @@ Reason: {reason}
 Please respond or open gate.
 """
 
-    client.messages.create(
-        from_='whatsapp:+14155238886',
-        body=message,
-        to='whatsapp:+27789203474'
-    )
+        msg = client.messages.create(
+            from_='whatsapp:+14155238886',
+            body=message,
+            to='whatsapp:+27789203474'
+        )
+
+        print("✅ SENT:", msg.sid)
+
+    except Exception as e:
+        print("❌ ERROR:", e)
 # 🗄️ Create database
 def init_db():
     conn = sqlite3.connect('visitors.db')
