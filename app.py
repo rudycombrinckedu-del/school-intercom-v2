@@ -29,7 +29,17 @@ Please respond or open gate.
         msg = client.messages.create(
             from_='whatsapp:+14155238886',
             body=message,
-            to='whatsapp:+27789203474'
+            numbers = [
+    'whatsapp:+27789203474',  # security
+    'whatsapp:+2782XXXXXXX',  # principal
+]
+
+for num in numbers:
+    client.messages.create(
+        from_='whatsapp:+14155238886',
+        body=message,
+        to=num
+    )
         )
 
         print("✅ SENT:", msg.sid)
