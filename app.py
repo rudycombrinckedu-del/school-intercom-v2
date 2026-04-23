@@ -16,14 +16,13 @@ client = Client(account_sid, auth_token)
 # 📲 WhatsApp function
 def send_whatsapp(name, phone, person, reason):
     try:
-        message = f"""📢 SCHOOL VISITOR ALERT
+ message = f"""🏫 {person} VISITOR ALERT
 
-Name: {name}
-Phone: {phone}
-Visiting: {person}
-Reason: {reason}
+👤 Name: {name}
+📞 Phone: {phone}
+📝 Reason: {reason}
 
-Please respond or open gate.
+⏰ Please respond or open gate.
 """
 
         msg = client.messages.create(
